@@ -1,10 +1,10 @@
 import { generateRangeRondom } from './Helper';
-interface vetifyOptions {
-  target: string;
+export interface vetifyOptions {
+  target?: string;
   pointNum?: Number;
   width?: number;
   height?: number;
-  imgSrc: string;
+  imgSrc?: string;
   onSuccess?: Function;
   onFail?: Function;
 }
@@ -12,7 +12,7 @@ interface vetifyOptions {
 class Vetify {
   private DEFAULT_OPTIONS: vetifyOptions = {
     target: '',
-    imgSrc: '',
+    imgSrc: '../assets/logo.png',
     pointNum: 3,
     width: 400,
     height: 300,
@@ -37,6 +37,7 @@ class Vetify {
   public static targetDom: HTMLElement | null;
   private static currentDotNum = 0;
   private clickAllowed: boolean = true;
+  private resetTimer: any = null;
 
   constructor(_options: vetifyOptions) {
     this.options = Object.assign(this.DEFAULT_OPTIONS, _options);
@@ -44,6 +45,10 @@ class Vetify {
   }
 
   async init() {
+    if(this.resetTimer) {
+      clearTimeout(this.resetTimer);
+      this.resetTimer = null;
+    }
     await this.initDom();
     this.createWordDom();
     this.bindEvents();
@@ -51,11 +56,7 @@ class Vetify {
 
   private async initDom() {
     const { width, height, target, imgSrc } = this.options;
-    if (!target) {
-      console.error('missing targetId');
-      return;
-    }
-    Vetify.targetDom = document.querySelector(target);
+    Vetify.targetDom = document.querySelector(target || '#vetify-container');
     if (!Vetify.targetDom) {
       console.error('target not found');
       return;
@@ -217,6 +218,10 @@ class Vetify {
         bgColor = 'red';
         alertText = '验证失败';
         this.options.onFail && this.options.onFail();
+        // 失败后刷新
+        this.resetTimer = setTimeout(() => {
+          this.reset();
+        }, 1500)
       }
       const alertDom = document.createElement('div');
       alertDom.className = 'vetify-click-alert';
@@ -228,25 +233,24 @@ class Vetify {
     }
   }
 
-  private bindFn() {
-    return this.onClickImage.bind(this)
-  }
-
   private bindEvents() {
-    Vetify.targetDom &&
-      Vetify.targetDom.addEventListener('click', this.bindFn());
+    if(Vetify.targetDom) {
+      Vetify.targetDom.onclick = this.onClickImage.bind(this)
+    }
   }
 
   public removeEvents() {
-    Vetify.targetDom &&
-      Vetify.targetDom.removeEventListener('click', this.bindFn());
+    if(Vetify.targetDom) {
+      Vetify.targetDom.onclick = null;
+    }
   }
 
   // 刷新/重置
   public reset() {
-    // 清除字、点
-    const words = document.getElementsByClassName('.vetify-click-word')
-    const points = document.getElementsByClassName('.vetify-click-point')
+    // 清除字、点、下方提示
+    const words = document.getElementsByClassName('vetify-click-word')
+    const points = document.getElementsByClassName('vetify-click-point')
+    const alert = document.getElementsByClassName('vetify-click-alert')
     function removeDom(dom: any) {
       if(dom) {
         Array.prototype.slice.call(dom).forEach(item => {
@@ -256,6 +260,7 @@ class Vetify {
     }
     removeDom(words);
     removeDom(points);
+    removeDom(alert);
     // 变量初始化
     this.wordPositons = [];
     this.clickPositions = [];

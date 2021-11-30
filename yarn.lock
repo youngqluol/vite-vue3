@@ -39,6 +39,11 @@
   resolved "https://registry.npmmirror.com/@emmetio/scanner/download/@emmetio/scanner-1.0.0.tgz#065b2af6233fe7474d44823e3deb89724af42b5f"
   integrity sha1-Blsq9iM/50dNRII+PeuJckr0K18=
 
+"@types/node@^16.11.11":
+  version "16.11.11"
+  resolved "https://registry.npmmirror.com/@types/node/download/@types/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
+  integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
+
 "@vitejs/plugin-vue@^1.9.3":
   version "1.10.0"
   resolved "https://registry.npmmirror.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.10.0.tgz#d015c12d905bb7f76274c2bb272c3662151bf3c0"
@@ -139,6 +144,11 @@
   dependencies:
     "@vue/compiler-dom" "3.2.22"
     "@vue/shared" "3.2.22"
+
+"@vue/devtools-api@^6.0.0-beta.18":
+  version "6.0.0-beta.20.1"
+  resolved "https://registry.npmmirror.com/@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.20.1.tgz#5b499647e929c35baf2a66a399578f9aa4601142"
+  integrity sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==
 
 "@vue/reactivity@3.2.22", "@vue/reactivity@^3.2.19":
   version "3.2.22"
@@ -980,6 +990,13 @@ vscode-vue-languageservice@^0.27.0:
     vscode-languageserver-textdocument "^1.0.1"
     vscode-pug-languageservice "^0.27.24"
     vscode-typescript-languageservice "^0.27.25"
+
+vue-router@4:
+  version "4.0.12"
+  resolved "https://registry.npmmirror.com/vue-router/download/vue-router-4.0.12.tgz#8dc792cddf5bb1abcc3908f9064136de7e13c460"
+  integrity sha1-jceSzd9bsavMOQj5BkE23n4TxGA=
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.18"
 
 vue-tsc@^0.3.0:
   version "0.3.0"
