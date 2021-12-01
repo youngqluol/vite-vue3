@@ -1,18 +1,16 @@
 import { generateRangeRondom } from './Helper';
+import initImage from '../assets/logo.png';
+
 export interface vetifyOptions {
-  target?: string;
   pointNum?: Number;
   width?: number;
   height?: number;
-  imgSrc?: string;
   onSuccess?: Function;
   onFail?: Function;
 }
 
 class Vetify {
   private DEFAULT_OPTIONS: vetifyOptions = {
-    target: '',
-    imgSrc: '../assets/logo.png',
     pointNum: 3,
     width: 400,
     height: 300,
@@ -20,10 +18,7 @@ class Vetify {
     onFail: () => {}
   };
 
-  private options: vetifyOptions = {
-    target: '',
-    imgSrc: ''
-  };
+  private options: vetifyOptions = {};
 
   private dotWords =
     '天地玄黄宇宙洪荒日月盈昃辰宿列张寒来暑往秋收冬藏闰馀成岁律吕调阳'.split(
@@ -38,6 +33,7 @@ class Vetify {
   private static currentDotNum = 0;
   private clickAllowed: boolean = true;
   private resetTimer: any = null;
+  private successTimer: any = null;
 
   constructor(_options: vetifyOptions) {
     this.options = Object.assign(this.DEFAULT_OPTIONS, _options);
@@ -45,18 +41,14 @@ class Vetify {
   }
 
   async init() {
-    if(this.resetTimer) {
-      clearTimeout(this.resetTimer);
-      this.resetTimer = null;
-    }
     await this.initDom();
     this.createWordDom();
     this.bindEvents();
   }
 
   private async initDom() {
-    const { width, height, target, imgSrc } = this.options;
-    Vetify.targetDom = document.querySelector(target || '#vetify-container');
+    const { width, height } = this.options;
+    Vetify.targetDom = document.querySelector('#vetify-container');
     if (!Vetify.targetDom) {
       console.error('target not found');
       return;
@@ -69,11 +61,8 @@ class Vetify {
     this.canvas.style.top = 0 + 'px';
     this.canvas.style.width = width + 'px';
     this.canvas.style.height = height + 'px';
-    if (!imgSrc) {
-      console.error('missing imgSrc');
-      return;
-    }
-    const drawFlag = await this.drawImage(imgSrc);
+    // TODO 图片随机显示，或者从服务端拉取？
+    const drawFlag = await this.drawImage(initImage);
     drawFlag && Vetify.targetDom.appendChild(this.canvas);
   }
 
@@ -209,19 +198,22 @@ class Vetify {
     if (Vetify.currentDotNum >= pointNum) {
       this.clickAllowed = false;
       let alertText = '';
-      let bgColor = ''
+      let bgColor = '';
       if (this.vetifyClickResult()) {
         alertText = '验证通过';
         bgColor = 'green';
-        this.options.onSuccess &&　this.options.onSuccess()
+        this.successTimer = setTimeout(() => {
+          this.options.onSuccess && this.options.onSuccess();
+        }, 1000);
       } else {
         bgColor = 'red';
         alertText = '验证失败';
         this.options.onFail && this.options.onFail();
+        // TODO 次数判断 超过最大次数不再刷新
         // 失败后刷新
         this.resetTimer = setTimeout(() => {
-          this.reset();
-        }, 1500)
+          this.refresh();
+        }, 1500);
       }
       const alertDom = document.createElement('div');
       alertDom.className = 'vetify-click-alert';
@@ -234,28 +226,40 @@ class Vetify {
   }
 
   private bindEvents() {
-    if(Vetify.targetDom) {
-      Vetify.targetDom.onclick = this.onClickImage.bind(this)
+    if (Vetify.targetDom) {
+      Vetify.targetDom.onclick = this.onClickImage.bind(this);
     }
   }
 
   public removeEvents() {
-    if(Vetify.targetDom) {
+    if (Vetify.targetDom) {
       Vetify.targetDom.onclick = null;
     }
   }
 
-  // 刷新/重置
-  public reset() {
+  // 清除计时器相关
+  private clearTimers() {
+    if (this.resetTimer) {
+      clearTimeout(this.resetTimer);
+      this.resetTimer = null;
+    }
+    if (this.successTimer) {
+      clearTimeout(this.successTimer);
+      this.successTimer = null;
+    }
+  }
+
+  //
+  private reset() {
     // 清除字、点、下方提示
-    const words = document.getElementsByClassName('vetify-click-word')
-    const points = document.getElementsByClassName('vetify-click-point')
-    const alert = document.getElementsByClassName('vetify-click-alert')
+    const words = document.getElementsByClassName('vetify-click-word');
+    const points = document.getElementsByClassName('vetify-click-point');
+    const alert = document.getElementsByClassName('vetify-click-alert');
     function removeDom(dom: any) {
-      if(dom) {
+      if (dom) {
         Array.prototype.slice.call(dom).forEach(item => {
           item.remove();
-        })
+        });
       }
     }
     removeDom(words);
@@ -268,18 +272,25 @@ class Vetify {
     this.clickAllowed = true;
     // 清除事件绑定
     this.removeEvents();
+    // 清除计时器
+    this.clearTimers();
     // 清空画布
     const { width = 0, height = 0 } = this.options;
-    if(this.canvasContext) {
-      this.canvasContext.clearRect(0, 0, width, height)
+    if (this.canvasContext) {
+      this.canvasContext.clearRect(0, 0, width, height);
     }
+  }
+
+  // 刷新/重置
+  public refresh() {
+    this.reset();
     // 初始化
     this.init();
   }
 
   // 销毁
   public destroy() {
-    this.removeEvents();
+    this.reset();
   }
 }
 

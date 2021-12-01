@@ -1,25 +1,38 @@
 <script setup lang="ts">
-import VetifyClick from '../components/VetifyClick.vue';
-import { getCurrentInstance } from 'vue'
+import { getCurrentInstance, inject } from 'vue'
 
-// 获取vue全局挂载属性
-const { proxy } = getCurrentInstance() 
+// 插件中provide，这里inject
+const $vetifyInstance = inject('$vetify')
+const { exposed }: any = $vetifyInstance
 
 function showClickVetify() {
-  console.log('点选验证')
-  proxy.$showVetify()
+  // 获取组件中expose的属性/方法
+  exposed.showVetify({
+    target: '#target-button',
+    position: 'top',
+    pointNum: 3,
+    onSuccess,
+    onFail
+  });
+}
+
+function onSuccess() {
+  console.error('验证成功');
+}
+
+function onFail() {
+  console.error('验证失败');
 }
 
 function showSliderVetify() {
   console.log('滑动验证')
-} 
+}
 </script>
 
 <template>
-  <!-- <VetifyClick /> -->
   <div class="vetify-page">
-   <button @click="showClickVetify">点验证码</button>
-   <button @click="showSliderVetify">滑动验证码</button>
+    <button @click="showClickVetify" id="target-button">点验证码</button>
+    <button @click="showSliderVetify">滑动验证码</button>
   </div>
 </template>
 
