@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { getCurrentInstance, inject } from 'vue'
+import { inject } from 'vue'
+import VetifySlide from '../components/VetifySlide.vue'
 
 // 插件中provide，这里inject
-const $vetifyInstance = inject('$vetify')
-const { exposed }: any = $vetifyInstance
+const $vetify :any = inject('$vetify')
 
 function showClickVetify() {
   // 获取组件中expose的属性/方法
-  exposed.showVetify({
+  $vetify && $vetify.showVetify({
     target: '#target-button',
     position: 'top',
     pointNum: 3,
@@ -27,9 +27,16 @@ function onFail() {
 function showSliderVetify() {
   console.log('滑动验证')
 }
+
+// for test
+function testEmit(...args: []) {
+  console.error('testEmit', args)
+}
+
 </script>
 
 <template>
+  <VetifySlide :title-text="'请先完成安全验证'" @test-emit="testEmit" />
   <div class="vetify-page">
     <button @click="showClickVetify" id="target-button">点验证码</button>
     <button @click="showSliderVetify">滑动验证码</button>

@@ -3,7 +3,7 @@ import DividerSection from '../components/DividerSection.vue';
 
 const demoPages = [
   {
-    title: '验证码',
+    title: '验证码demo',
     routeName: 'vetify'
   }
 ]

@@ -6,7 +6,7 @@ import { createApp, App } from 'vue';
 
 export default {
   install(vue: App) {
-    const Vetify = createApp(VetifyClick);
+    const Vetify = createApp(VetifyClick, {msg: '1'});
     const container = document.createElement('div');
     container.id = 'vetify'
     document.body.appendChild(container);
@@ -16,7 +16,7 @@ export default {
     vue3: 替换目标元素的innerHTML
      */
     Vetify.mount(container);
-    // 将组件实例暴露出去，在任何组件内都可访问到
-    vue.provide('$vetify', Vetify._instance);
+    // 组件实例expose的方法和属性
+    vue.provide('$vetify', Vetify._instance?.exposed);
   }
 };

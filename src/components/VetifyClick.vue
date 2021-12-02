@@ -9,7 +9,7 @@ interface showVetifyOptions extends vetifyOptions {
 }
 
 // 定义props
-defineProps<{ msg?: string }>()
+const props = defineProps<{ msg?: string }>()
 
 let vetifyInstance: any = null;
 let maskVisible = ref(false);
@@ -58,6 +58,7 @@ function onReset() {
 }
 
 onMounted(async () => {
+  console.log('props.msg', props.msg)
 })
 
 onBeforeUnmount(() => {
