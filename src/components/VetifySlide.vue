@@ -34,19 +34,24 @@ const imgSrc = reactive({
   slide: ''
 })
 
-const slideBgStyle = reactive({
-  width: 320 + 'px',
-  height: 160 + 'px'
-})
+let slideBgWidth = 320 + 'px'
+let slideBgHeight = 160 + 'px'
+let slideWidth = 60 + 'px'
+let slideHeight = 158 + 'px'
 
-const color = ref('red'); // for test: v-bind style
+const color = 'red'; // for test: v-bind style
 
 /* lifeCycle */
 onBeforeMount(async () => {
-  const [slideBg = '', slide = ''] = await props.getImgSrc()
+  const [slideBg = initialSlideBg, slide = initialSlide] = await props.getImgSrc()
   imgSrc.slideBg = slideBg
   imgSrc.slide = slide
-  const a = await loadImages([initialSlideBg])
+  const imgsInfo = await loadImages([imgSrc.slideBg, imgSrc.slide])
+  console.log(imgsInfo)
+  slideBgWidth = imgsInfo[0].width + 'px'
+  slideBgHeight = imgsInfo[0].height + 'px'
+  slideWidth = imgsInfo[1].width + 'px'
+  slideHeight = imgsInfo[1].height + 'px'
 })
 
 
@@ -65,7 +70,10 @@ function close() {
       <div class="text">{{ props.titleText }}</div>
       <div class="close" @click="close">X</div>
     </header>
-    <main class="main"></main>
+    <main class="main">
+      <img :src="imgSrc.slideBg" alt="背景图" class="slide-bg">
+      <img :src="imgSrc.slide" alt="滑块" class="slide">
+    </main>
     <footer class="footer"></footer>
   </div>
 </template>
@@ -95,6 +103,24 @@ function close() {
   }
 
   .main {
+    position: relative;
+    height: v-bind(slideBgHeight);
+
+    img {
+      position: absolute;
+      left: 0;
+      top:0;
+    }
+
+    .slide-bg {
+      width: v-bind(slideBgWidth);
+      height: v-bind(slideBgHeight)
+    }
+
+    .slide {
+      width: v-bind(slideWidth);
+      height: v-bind(slideHeight)
+    }
   }
 }
 </style>
