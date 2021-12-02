@@ -39,6 +39,9 @@ let slideBgHeight = 160 + 'px'
 let slideWidth = 60 + 'px'
 let slideHeight = 158 + 'px'
 
+let slideBlockLeft = '0px';
+// let progressBlockWidth = '0px';
+
 const color = 'red'; // for test: v-bind style
 
 /* lifeCycle */
@@ -60,6 +63,13 @@ function close() {
   console.log('close')
 }
 
+function onMousedown() {
+  console.log('mouse down')
+}
+
+function onMouseup() {
+  console.log('mouse up')
+}
 
 </script>
 
@@ -71,14 +81,24 @@ function close() {
       <div class="close" @click="close">X</div>
     </header>
     <main class="main">
-      <img :src="imgSrc.slideBg" alt="背景图" class="slide-bg">
-      <img :src="imgSrc.slide" alt="滑块" class="slide">
+      <img :src="imgSrc.slideBg" alt="背景图" class="slide-bg" />
+      <img :src="imgSrc.slide" alt="滑块" class="slide" />
     </main>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="progress-block"></div>
+      <div
+        class="slide-block"
+        @mousedown="onMousedown"
+        @mouseup="onMouseup"
+      ></div>
+    </footer>
   </div>
 </template>
 
 <style lang="less" scoped>
+@slideBgWidth: v-bind(slideBgWidth);
+@slideBgHeight: v-bind(slideBgHeight);
+
 .mask {
   width: 100%;
   height: 100%;
@@ -91,9 +111,10 @@ function close() {
 
 .body {
   width: auto;
+  padding: 0 10px;
   height: auto;
   background-color: #fff;
-  color: v-bind(color);
+  position: absolute;
 
   .header {
     width: 100%;
@@ -104,22 +125,48 @@ function close() {
 
   .main {
     position: relative;
-    height: v-bind(slideBgHeight);
+    width: @slideBgWidth;
+    height: @slideBgHeight;
 
     img {
       position: absolute;
       left: 0;
-      top:0;
+      top: 0;
     }
 
     .slide-bg {
-      width: v-bind(slideBgWidth);
-      height: v-bind(slideBgHeight)
+      width: @slideBgWidth;
+      height: @slideBgHeight;
     }
 
     .slide {
       width: v-bind(slideWidth);
-      height: v-bind(slideHeight)
+      height: v-bind(slideHeight);
+      left: v-bind(slideBlockLeft);
+    }
+  }
+
+  .footer {
+    width: @slideBgWidth;
+    height: 60px;
+    position: relative;
+
+    .slide-block {
+      width: 60px;
+      height: 60px;
+      background-color: aqua;
+      position: absolute;
+      top: 0;
+      left: v-bind(slideBlockLeft);
+    }
+
+    .progress-block {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: v-bind(slideBlockLeft);
+      background-color: aquamarine;
     }
   }
 }
