@@ -1,3 +1,4 @@
+// 范围随机数
 export function generateRangeRondom(max: number, min: number): number {
   return Math.round(Math.random() * (max - min)) + min;
 }
@@ -28,6 +29,7 @@ export function arrMix(infoArr: string[][], codeArr: string[][]): Object[] {
   return finalArr;
 }
 
+/* 图片加载 */
 interface ImageToLoad {
   width: number;
   height: number;
@@ -58,4 +60,30 @@ export async function loadImages(
     imgsInfo.push(await loadImage(imgsArr[i]));
   }
   return imgsInfo;
+}
+
+/* 节流 防抖 */
+export function throttle(fn: Function, delay: number) {
+  let timer: any = null;
+  return function (...params: any[]) {
+    if (timer) return;
+    fn(...params);
+    timer = setTimeout(() => {
+      timer = null;
+    }, delay);
+  };
+}
+
+export function debounce(fn: Function, delay: number) {
+  let timer: any = null;
+  return function (...params: any[]) {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+      return;
+    }
+    timer = setTimeout(() => {
+      fn(...params);
+    }, delay);
+  };
 }

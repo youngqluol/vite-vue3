@@ -1,5 +1,7 @@
 import { generateRangeRondom } from './Helper';
 import initImage from '../assets/logo.png';
+import VetifySlide from '../components/VetifySlide.vue';
+import { createApp, App } from 'vue';
 
 export interface vetifyOptions {
   pointNum?: Number;
@@ -295,3 +297,24 @@ class Vetify {
 }
 
 export default Vetify;
+
+interface VetifySlideProps {
+  target?: string; // 位置信息：决定组件在页面的最终位置
+  position?: string; // top、bottom、middle
+  titleText?: string;
+  onFail?: Function;
+  onSuccess?: Function;
+  // 图片（背景、滑块）获取，需要是一个可以返回图片地址的promise
+  // 默认数组第一个是背景图、第二个是滑块图
+  getImgSrc: () => Promise<string[]>;
+  // 结果校验
+  checkResult: (data: string | number) => Promise<boolean>;
+}
+
+export function showVetifySlide({ ...options }: VetifySlideProps) {
+  const Vetify = createApp(VetifySlide, { ...options });
+  const container = document.createElement('div');
+  container.id = 'vetify-slide-container';
+  document.body.appendChild(container);
+  Vetify.mount(container);
+}
