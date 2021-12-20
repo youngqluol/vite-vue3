@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DividerSection from '../components/DividerSection.vue';
+import useTitle from '@/hooks/useTitle';
 
 const demoPages = [
   {
@@ -7,6 +8,12 @@ const demoPages = [
     routeName: 'vetify'
   }
 ]
+
+const title = useTitle()
+
+function changeTitle(newTitle: string) {
+  title.value = newTitle;
+}
 
 </script>
 
@@ -19,6 +26,7 @@ const demoPages = [
       :key="demoPage.routeName"
     />
   </div>
+  <button @click="changeTitle('新标题')">改变title</button>
 </template>
 
 <style lang="less" scoped>

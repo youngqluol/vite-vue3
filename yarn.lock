@@ -44,6 +44,11 @@
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
   integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
 
+"@types/qs@^6.9.7":
+  version "6.9.7"
+  resolved "https://registry.npmmirror.com/@types/qs/download/@types/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
+  integrity sha1-Y7t9Bn2xB8weRXwwO8JdUR/r9ss=
+
 "@vitejs/plugin-vue@^1.9.3":
   version "1.10.0"
   resolved "https://registry.npmmirror.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.10.0.tgz#d015c12d905bb7f76274c2bb272c3662151bf3c0"
@@ -213,6 +218,13 @@ assert-never@^1.2.1:
   resolved "https://registry.nlark.com/assert-never/download/assert-never-1.2.1.tgz#11f0e363bf146205fb08193b5c7b90f4d1cf44fe"
   integrity sha1-EfDjY78UYgX7CBk7XHuQ9NHPRP4=
 
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.npmmirror.com/axios/download/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
+
 babel-walk@3.0.0-canary-5:
   version "3.0.0-canary-5"
   resolved "https://registry.nlark.com/babel-walk/download/babel-walk-3.0.0-canary-5.tgz#f66ecd7298357aee44955f235a6ef54219104b11"
@@ -220,7 +232,7 @@ babel-walk@3.0.0-canary-5:
   dependencies:
     "@babel/types" "^7.9.6"
 
-call-bind@^1.0.2:
+call-bind@^1.0.0, call-bind@^1.0.2:
   version "1.0.2"
   resolved "https://registry.nlark.com/call-bind/download/call-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
   integrity sha1-sdTonmiBGcPJqQOtMKuy9qkZvjw=
@@ -430,6 +442,11 @@ estree-walker@^2.0.2:
   resolved "https://registry.nlark.com/estree-walker/download/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=
 
+follow-redirects@^1.14.4:
+  version "1.14.6"
+  resolved "https://registry.npmmirror.com/follow-redirects/download/follow-redirects-1.14.6.tgz#8cfb281bbc035b3c067d6cd975b0f6ade6e855cd"
+  integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
+
 fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.npmmirror.com/fsevents/download/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
@@ -619,6 +636,11 @@ object-assign@^4.1.1:
   resolved "https://registry.nlark.com/object-assign/download/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
+object-inspect@^1.9.0:
+  version "1.12.0"
+  resolved "https://registry.npmmirror.com/object-inspect/download/object-inspect-1.12.0.tgz#6e2c120e868fd1fd18cb4f18c31741d0d6e776f0"
+  integrity sha512-Ho2z80bVIvJloH+YzRmpZVQe87+qASmBUKZDWgx9cu+KDrX2ZDH/3tMy+gXbZETVGs2M8YdxObOh7XAtim9Y0g==
+
 parse-node-version@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmmirror.com/parse-node-version/download/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"
@@ -771,6 +793,13 @@ pug@^3.0.2:
     pug-runtime "^3.0.1"
     pug-strip-comments "^2.0.0"
 
+qs@^6.10.2:
+  version "6.10.2"
+  resolved "https://registry.npmmirror.com/qs/download/qs-6.10.2.tgz#c1431bea37fc5b24c5bdbafa20f16bdf2a4b9ffe"
+  integrity sha512-mSIdjzqznWgfd4pMii7sHtaYF8rx8861hBO80SraY5GT0XQibWZWJSid0avzHGkDIZLImux2S5mXO0Hfct2QCw==
+  dependencies:
+    side-channel "^1.0.4"
+
 request-light@^0.5.4:
   version "0.5.5"
   resolved "https://registry.npmmirror.com/request-light/download/request-light-0.5.5.tgz#254ab0b38a1db2192170b599b05181934e14932b"
@@ -812,6 +841,15 @@ semver@^7.3.5:
   integrity sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=
   dependencies:
     lru-cache "^6.0.0"
+
+side-channel@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.nlark.com/side-channel/download/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
+  integrity sha1-785cj9wQTudRslxY1CkAEfpeos8=
+  dependencies:
+    call-bind "^1.0.0"
+    get-intrinsic "^1.0.2"
+    object-inspect "^1.9.0"
 
 source-map-js@^0.6.2:
   version "0.6.2"
