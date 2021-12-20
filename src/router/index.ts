@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Home from '../views/home.vue';
+import Home from '@/views/home.vue';
 
 const routes = [
   {
@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/vetify',
     name: 'vetify',
-    component: () => import('../views/vetify.vue')
+    component: () => import('@/views/vetify.vue')
   }
 ];
 
