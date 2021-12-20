@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { inject } from 'vue'
+import { $vetify } from '../utils/context'
 import VetifySlide from '../components/VetifySlide.vue'
 import { showVetifySlide } from '../utils/vetify'
 
 // 插件中provide，这里inject
-const $vetify: any = inject('$vetify')
+const vetify = inject($vetify)
 
 function showClickVetify() {
   // 获取组件中expose的属性/方法
-  $vetify && $vetify.showVetify({
+  vetify && vetify.showVetify({
     target: '#target-button',
     position: 'top',
     pointNum: 3,

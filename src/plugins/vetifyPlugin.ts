@@ -1,5 +1,6 @@
 import VetifyClick from '../components/VetifyClick.vue';
 import { createApp, App } from 'vue';
+import { $vetify } from '../utils/context'
 
 // https://v3.cn.vuejs.org/guide/migration/global-api.html#vue-extend-%E7%A7%BB%E9%99%A4
 // Vue.extend 移除、使用createApp
@@ -17,6 +18,6 @@ export default {
      */
     Vetify.mount(container);
     // 组件实例expose的方法和属性
-    vue.provide('$vetify', Vetify._instance?.exposed);
+    vue.provide($vetify, Vetify._instance?.exposed);
   }
 };
