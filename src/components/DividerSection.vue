@@ -26,7 +26,7 @@ function onButtonClick() {
     {{ title }}
     <span>----------</span>
   </div>
-  <button @click="onButtonClick">跳转 {{ title }} 页</button>
+  <button @click="onButtonClick">跳转 【{{ title }}】 页</button>
 </template>
 
 <style lang="less" scoped>

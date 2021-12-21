@@ -7,6 +7,10 @@ const demoPages = [
   {
     title: '验证码demo',
     routeName: 'vetify'
+  },
+  {
+    title: 'Element demo',
+    routeName: 'element'
   }
 ]
 
@@ -27,10 +31,10 @@ function changeTitle(newTitle: string) {
       :key="demoPage.routeName"
     />
   </div>
-  <button @click="changeTitle('新标题')">改变title</button>
+  <!-- <button @click="changeTitle('新标题')">改变title</button>
   <functionComp :text="'1'">
     <div>1111</div>
-  </functionComp>
+  </functionComp> -->
 </template>
 
 <style lang="less" scoped>
