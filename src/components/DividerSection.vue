@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { h } from 'vue';
 
 // withDefaults：给 props 提供默认值
 // https://v3.cn.vuejs.org/api/sfc-script-setup.html#%E4%BB%85%E9%99%90-typescript-%E7%9A%84%E5%8A%9F%E8%83%BD
@@ -17,6 +18,7 @@ function onButtonClick() {
   router.push({ name: props.routeName })
 }
 
+h('div')
 
 </script>
 
