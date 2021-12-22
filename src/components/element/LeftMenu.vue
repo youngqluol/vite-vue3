@@ -25,7 +25,7 @@ import { useMenuStore } from '@/store/menu';
 import { storeToRefs } from 'pinia';
 
 interface ListOptions {
-  title: never,
+  title: string,
   iconName: string,
 }
 
@@ -39,7 +39,7 @@ const isCollapse = ref(false)
 const menuStore = useMenuStore();
 // const { navList } = storeToRefs(menuStore);
 
-function addNav(nav: never) {
+function addNav(nav: string) {
   console.log('addNav')
   menuStore.addNav(nav)
 }
@@ -48,7 +48,7 @@ function addNav(nav: never) {
 
 <template>
   <div class="left-menu">
-    <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
+    <el-menu class="el-menu-vertical-demo" :collapse="isCollapse" :default-active="'0'">
       <el-menu-item
         v-for="(item, index) in props.menuList"
         :key="item.title"

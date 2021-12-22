@@ -2,9 +2,15 @@ import { defineStore } from 'pinia';
 // import { ref } from 'vue';
 
 // 第一种
+interface MenuState {
+  count: number,
+  navList: string[],
+  tabsValue: string
+}
+
 export const useMenuStore = defineStore({
   id: 'menu',
-  state: () => ({
+  state: (): MenuState => ({
     count: 0,
     navList: [],
     tabsValue: '',
@@ -19,7 +25,7 @@ export const useMenuStore = defineStore({
       this.count++;
     },
 
-    addNav(targetNav: never) {
+    addNav(targetNav: string) {
       this.toggleTabsValue(targetNav);
       if (this.navList.includes(targetNav)) return;
       this.navList.push(targetNav);
