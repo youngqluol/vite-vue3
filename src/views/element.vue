@@ -1,46 +1,63 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import {
-  Document,
-  Menu as IconMenu,
-  Setting,
-} from '@element-plus/icons-vue'
+import LeftMenu from '@/components/element/LeftMenu.vue';
+import RightNav from '@/components/element/RightNav.vue';
 
-const isCollapse = ref(false)
-function handleCollapse() {
-  isCollapse.value = !isCollapse.value
-}
+// for test
+// 图标组件：Document, HomeFilled, Setting, Edit, Eleme, HelpFilled, Goblet, Key, Shop, Switch
+const menuList = [
+  {
+    title: 'Document',
+    iconName: 'Document',
+  },
+  {
+    title: 'HomeFilled',
+    iconName: 'HomeFilled',
+  },
+  {
+    title: 'Setting',
+    iconName: 'Setting',
+  },
+  {
+    title: 'Edit',
+    iconName: 'Edit',
+  },
+  {
+    title: 'Eleme',
+    iconName: 'Eleme',
+  },
+  {
+    title: 'HelpFilled',
+    iconName: 'HelpFilled',
+  },
+  {
+    title: 'Goblet',
+    iconName: 'Goblet',
+  },
+  {
+    title: 'Key',
+    iconName: 'Key',
+  },
+  {
+    title: 'Shop',
+    iconName: 'Shop',
+  },
+  {
+    title: 'Switch',
+    iconName: 'Switch',
+  }
+]
+
 </script>
 
 <template>
-  <!-- <button @click="handleCollapse">展开/收起</button> -->
-  <el-menu
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-  >
-    <el-menu-item index="2">
-      <el-icon>
-        <icon-menu />
-      </el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <el-icon>
-        <document />
-      </el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon>
-        <setting />
-      </el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
-  </el-menu>
+  <div class="element-page">
+    <left-menu :menu-list="menuList" />
+    <right-nav />
+  </div>
 </template>
 
 <style lang="less" scoped>
-.el-menu-vertical-demo {
-  width: 200px;
+.element-page {
+  display: flex;
 }
 </style>
