@@ -48,10 +48,16 @@ function addNav(nav: string) {
 
 <template>
   <div class="left-menu">
-    <el-menu class="el-menu-vertical-demo" :collapse="isCollapse" :default-active="'0'">
+    <el-menu
+      class="el-menu-vertical-demo"
+      :collapse="isCollapse"
+      :default-active="'0'"
+      :background-color="'#001529'"
+      :text-color="'#ffffffb3'"
+    >
       <el-menu-item
         v-for="(item, index) in props.menuList"
-        :key="item.title"
+        :key="index"
         :index="`${index}`"
         @click="addNav(item.title)"
       >
@@ -66,9 +72,18 @@ function addNav(nav: string) {
 
 <style scoped lang="less">
 .left-menu {
-  width: 200px;
+  width: 150px;
+  height: 100vh;
+  overflow: auto;
   .el-menu-vertical-demo {
     // width: 100%;
   }
+}
+
+// 滚动条样式
+.left-menu::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #aaa;
 }
 </style>

@@ -4,7 +4,7 @@ import { useMenuStore } from '@/store/menu';
 import { storeToRefs } from 'pinia';
 
 const menuStore = useMenuStore();
-const { navList, tabsValue } = storeToRefs(menuStore);
+const { navList, currentNavValue } = storeToRefs(menuStore);
 
 const editableTabs = computed(() => {
   return navList.value.map(item => {
@@ -21,14 +21,14 @@ function removeTab(name: string) {
 }
 
 function clickTab(tab: any) {
-  menuStore.toggleTabsValue(tab.paneName)
+  // menuStore.toggleTabsValue(tab.paneName)
 }
 
 </script>
 
 <template>
   <div class="right-nav">
-    <el-tabs v-model="tabsValue" type="card" closable @tab-remove="removeTab" @tab-click="clickTab">
+    <el-tabs v-model="currentNavValue" type="card" closable @tab-remove="removeTab" @tab-click="clickTab">
       <el-tab-pane
         v-for="item in editableTabs"
         :key="item.name"

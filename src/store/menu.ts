@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 interface MenuState {
   count: number,
   navList: string[],
-  tabsValue: string
+  currentNavValue: string
 }
 
 export const useMenuStore = defineStore({
@@ -13,7 +13,7 @@ export const useMenuStore = defineStore({
   state: (): MenuState => ({
     count: 0,
     navList: [],
-    tabsValue: '',
+    currentNavValue: '',
   }),
   getters: {
     doubleCount(): number {
@@ -32,7 +32,7 @@ export const useMenuStore = defineStore({
     },
 
     toggleTabsValue(targetNav: string) {
-      this.tabsValue = targetNav;
+      this.currentNavValue = targetNav;
     }
   }
 });
