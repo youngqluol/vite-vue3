@@ -18,6 +18,7 @@ const editableTabs = computed(() => {
 
 function removeTab(name: string) {
   console.log('removeTab', name)
+  
 }
 
 function clickTab(tab: any) {

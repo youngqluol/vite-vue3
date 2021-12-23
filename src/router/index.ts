@@ -21,6 +21,11 @@ const routes = [
     name: 'element',
     component: () => import('@/views/element.vue')
   },
+  {
+    path: '/tsxPage',
+    name: 'tsxPage',
+    component: () => import('@/components/testDemo/TsxDemo.vue')
+  }
 ];
 
 const router = createRouter({

@@ -3,7 +3,12 @@ import DividerSection from '../components/DividerSection.vue';
 import functionComp from '../components/functionComp';
 import useTitle from '@/hooks/useTitle';
 
-const demoPages = [
+interface DemoPageItem {
+  title: string,
+  routeName: string
+}
+
+const demoPages: DemoPageItem[] = [
   {
     title: '验证码demo',
     routeName: 'vetify'
@@ -11,6 +16,10 @@ const demoPages = [
   {
     title: 'Element demo',
     routeName: 'element'
+  },
+  {
+    title: 'TSX demo',
+    routeName: 'tsxPage'
   }
 ]
 

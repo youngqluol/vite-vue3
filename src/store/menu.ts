@@ -31,6 +31,10 @@ export const useMenuStore = defineStore({
       this.navList.push(targetNav);
     },
 
+    removeNav() {
+      
+    },
+
     toggleTabsValue(targetNav: string) {
       this.currentNavValue = targetNav;
     }
