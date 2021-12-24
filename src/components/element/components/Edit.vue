@@ -9,13 +9,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 onMounted(() => {
-  console.error('Document onMounted')
+  console.error('Edit onMounted')
 })
 
 </script>
 
 <template>
-  <div>Document</div>
+  <div>Edit</div>
 </template>
 
 <style scoped>

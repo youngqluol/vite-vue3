@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, watch, defineAsyncComponent } from 'vue';
 import { useMenuStore } from '@/store/menu';
 import { storeToRefs } from 'pinia';
 
@@ -7,25 +7,39 @@ import { storeToRefs } from 'pinia';
 const menuStore = useMenuStore();
 const { navList, currentNavValue } = storeToRefs(menuStore);
 
+// const navInfo = [];
+
+// watch(
+//   () => navList.value,
+//   (newV) => {
+
+//   },
+//   {
+//     immediate: true
+//   })
+
+const navCompMap = new Map();
+
 const editableTabs = computed(() => {
-  return navList.value.map(item => {
+  return navList.value.map(navValue => {
+    if (!navCompMap.has(navValue)) {
+      navCompMap.set(navValue, defineAsyncComponent(() => import(`./components/${navValue}.vue`)))
+    }
+    const navComponent = navCompMap.get(navValue)
     return {
-      title: item,
-      name: item,
-      navComponent: defineAsyncComponent(() => import('./components/Document.vue'))
+      title: navValue,
+      name: navValue,
+      navComponent
     }
   })
 }
 )
-const currentNavComponent = computed(() => {
-  if (!editableTabs.value.length) {
-    return null
-  }
-  return editableTabs.value.filter(item => item.name === currentNavValue.value)[0].navComponent
-})
+const currentNavComponent = computed(() => editableTabs.value.filter(item => item.name === currentNavValue.value)[0].navComponent)
 
 function removeTab(name: string) {
   console.log('removeTab', name)
+  // menuStore.removeNav(name);
+  // 删除navCompMap中异步组件
 
 }
 
@@ -51,9 +65,11 @@ function clickTab(tab: any) {
         :name="item.name"
       ></el-tab-pane>
     </el-tabs>
-    <keep-alive v-if="currentNavValue.length">
-      <component :is="currentNavComponent"></component>
-    </keep-alive>
+    <div class="nav-comp-wrapper">
+      <keep-alive>
+        <component :is="currentNavComponent"></component>
+      </keep-alive>
+    </div>
   </div>
 </template>
 

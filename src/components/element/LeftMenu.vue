@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h } from 'vue';
+import { defineComponent, onBeforeMount } from 'vue';
 import { Document, HomeFilled, Setting, Edit, Eleme, HelpFilled, Goblet, Key, Shop, Switch } from '@element-plus/icons-vue'
 
 export default defineComponent({
@@ -38,6 +38,13 @@ const isCollapse = ref(false)
 
 const menuStore = useMenuStore();
 // const { navList } = storeToRefs(menuStore);
+
+// 默认显示第一个
+onBeforeMount(() => {
+  if (props.menuList.length) {
+    addNav(props.menuList[0].title)
+  }
+})
 
 function addNav(nav: string) {
   console.log('addNav')

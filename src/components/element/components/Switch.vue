@@ -9,13 +9,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 onMounted(() => {
-  console.error('Document onMounted')
+  console.error('Switch onMounted')
 })
 
 </script>
 
 <template>
-  <div>Document</div>
+  <div>Switch</div>
 </template>
 
 <style scoped>

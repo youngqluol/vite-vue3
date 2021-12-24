@@ -3,9 +3,9 @@ import { defineStore } from 'pinia';
 
 // 第一种
 interface MenuState {
-  count: number,
-  navList: string[],
-  currentNavValue: string
+  count: number;
+  navList: string[];
+  currentNavValue: string;
 }
 
 export const useMenuStore = defineStore({
@@ -13,7 +13,7 @@ export const useMenuStore = defineStore({
   state: (): MenuState => ({
     count: 0,
     navList: [],
-    currentNavValue: '',
+    currentNavValue: ''
   }),
   getters: {
     doubleCount(): number {
@@ -31,8 +31,11 @@ export const useMenuStore = defineStore({
       this.navList.push(targetNav);
     },
 
-    removeNav() {
-      
+    removeNav(name: string) {
+      const index = this.navList.findIndex(item => item === name);
+      if (index > -1) {
+        this.navList.splice(index, 1);
+      }
     },
 
     toggleTabsValue(targetNav: string) {
