@@ -2,10 +2,16 @@ import { defineStore } from 'pinia';
 // import { ref } from 'vue';
 
 // 第一种
+
+interface MenuListOptions {
+  title: string,
+  iconName: string,
+}
 interface MenuState {
   count: number;
   navList: string[];
   currentNavValue: string;
+  menuList: MenuListOptions[];
 }
 
 export const useMenuStore = defineStore({
@@ -13,16 +19,21 @@ export const useMenuStore = defineStore({
   state: (): MenuState => ({
     count: 0,
     navList: [],
-    currentNavValue: ''
+    currentNavValue: '',
+    menuList: []
   }),
   getters: {
     doubleCount(): number {
       return this.count * 2;
+    },
+    currentMenuIndex(): string {
+       const index = this.menuList.findIndex(item => item.title === this.currentNavValue);
+       return String(index);
     }
   },
   actions: {
-    increment() {
-      this.count++;
+    addMenuList(listData: MenuListOptions[]) {
+      this.menuList = listData
     },
 
     addNav(targetNav: string) {
@@ -32,9 +43,13 @@ export const useMenuStore = defineStore({
     },
 
     removeNav(name: string) {
+      if (this.navList.length <= 1) return;
       const index = this.navList.findIndex(item => item === name);
       if (index > -1) {
         this.navList.splice(index, 1);
+        if (name === this.currentNavValue) {
+          this.currentNavValue = this.navList[index - 1];
+        }
       }
     },
 

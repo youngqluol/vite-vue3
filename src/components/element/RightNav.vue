@@ -7,17 +7,6 @@ import { storeToRefs } from 'pinia';
 const menuStore = useMenuStore();
 const { navList, currentNavValue } = storeToRefs(menuStore);
 
-// const navInfo = [];
-
-// watch(
-//   () => navList.value,
-//   (newV) => {
-
-//   },
-//   {
-//     immediate: true
-//   })
-
 const navCompMap = new Map();
 
 const editableTabs = computed(() => {
@@ -38,7 +27,7 @@ const currentNavComponent = computed(() => editableTabs.value.filter(item => ite
 
 function removeTab(name: string) {
   console.log('removeTab', name)
-  // menuStore.removeNav(name);
+  menuStore.removeNav(name);
   // 删除navCompMap中异步组件
 
 }

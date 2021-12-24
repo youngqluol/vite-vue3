@@ -22,22 +22,21 @@ export default defineComponent({
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useMenuStore } from '@/store/menu';
-import { storeToRefs } from 'pinia';
 
-interface ListOptions {
+interface MenuListOptions {
   title: string,
   iconName: string,
 }
 
 interface Props {
-  menuList: Array<ListOptions>
+  menuList: Array<MenuListOptions>
 }
 const props = defineProps<Props>()
 
 const isCollapse = ref(false)
 
 const menuStore = useMenuStore();
-// const { navList } = storeToRefs(menuStore);
+menuStore.addMenuList(props.menuList);
 
 // 默认显示第一个
 onBeforeMount(() => {
@@ -58,7 +57,7 @@ function addNav(nav: string) {
     <el-menu
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      :default-active="'0'"
+      :default-active="menuStore.currentMenuIndex"
       :background-color="'#001529'"
       :text-color="'#ffffffb3'"
     >
