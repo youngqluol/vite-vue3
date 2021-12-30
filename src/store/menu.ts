@@ -48,7 +48,7 @@ export const useMenuStore = defineStore({
       if (index > -1) {
         this.navList.splice(index, 1);
         if (name === this.currentNavValue) {
-          this.currentNavValue = this.navList[index - 1];
+          this.currentNavValue = this.navList[index - 1 || index + 1]; // TODO fix bug
         }
       }
     },
