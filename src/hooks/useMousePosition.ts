@@ -11,12 +11,12 @@ export default function useMousePosition() {
   }
 
   onMounted(() => {
-    window.addEventListener('mousemove', update)
-  })
+    window.addEventListener('mousemove', update);
+  });
 
   onUnmounted(() => {
-    window.removeEventListener('mousemove', update)
-  })
+    window.removeEventListener('mousemove', update);
+  });
 
-  return {x, y};
+  return { x, y };
 }
