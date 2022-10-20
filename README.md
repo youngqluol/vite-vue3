@@ -1,2 +1,2 @@
 # go-for-vite
-study vite + vue3 + ts
+:ambulance: learn vite + vue3 + ts

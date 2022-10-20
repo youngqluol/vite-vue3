@@ -3,10 +3,23 @@ import DividerSection from '../components/DividerSection.vue';
 import functionComp from '../components/functionComp';
 import useTitle from '@/hooks/useTitle';
 
-const demoPages = [
+interface DemoPageItem {
+  title: string,
+  routeName: string
+}
+
+const demoPages: DemoPageItem[] = [
   {
     title: '验证码demo',
     routeName: 'vetify'
+  },
+  {
+    title: 'Element demo',
+    routeName: 'element'
+  },
+  {
+    title: 'TSX demo',
+    routeName: 'tsxPage'
   }
 ]
 
@@ -27,10 +40,10 @@ function changeTitle(newTitle: string) {
       :key="demoPage.routeName"
     />
   </div>
-  <button @click="changeTitle('新标题')">改变title</button>
+  <!-- <button @click="changeTitle('新标题')">改变title</button>
   <functionComp :text="'1'">
     <div>1111</div>
-  </functionComp>
+  </functionComp> -->
 </template>
 
 <style lang="less" scoped>

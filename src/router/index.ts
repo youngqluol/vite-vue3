@@ -15,6 +15,16 @@ const routes = [
     path: '/vetify',
     name: 'vetify',
     component: () => import('@/views/vetify.vue')
+  },
+  {
+    path: '/element',
+    name: 'element',
+    component: () => import('@/views/element.vue')
+  },
+  {
+    path: '/tsxPage',
+    name: 'tsxPage',
+    component: () => import('@/components/testDemo/TsxDemo.vue')
   }
 ];
 
