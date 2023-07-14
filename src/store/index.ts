@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import type { App } from 'vue';
-import { defineStore, createPinia } from 'pinia';
+import { createPinia, defineStore } from 'pinia';
 
 const store = createPinia();
 

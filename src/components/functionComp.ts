@@ -1,8 +1,8 @@
-import { ref, h } from 'vue';
+import { h } from 'vue';
 import type { SetupContext } from 'vue';
 
 interface CompProps {
-  text: string;
+  text: string
 }
 
 export default function comp(props: CompProps, context: SetupContext) {
@@ -13,8 +13,8 @@ export default function comp(props: CompProps, context: SetupContext) {
   return h(
     'div',
     {
-      id: 'comp'
+      id: 'comp',
     },
-    [text, h('span', {}, slot)]
+    [text, h('span', {}, slot)],
   );
 }

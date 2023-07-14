@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount, getCurrentInstance, nextTick } from 'vue'
+import { getCurrentInstance, nextTick, onBeforeMount, reactive, ref } from 'vue'
 import { loadImages, throttle } from '../utils/Helper'
 import initialSlideBg from '../assets/slide-bg.jpg'
 import initialSlide from '../assets/slide.png';
@@ -8,12 +8,12 @@ import initialSlide from '../assets/slide.png';
 interface Props {
   target?: string // 位置信息：决定组件在页面的最终位置
   position?: string // top、bottom、middle
-  titleText?: string,
-  onFail?: Function,
-  onSuccess?: Function,
+  titleText?: string
+  onFail?: Function
+  onSuccess?: Function
   // 图片（背景、滑块）获取，需要是一个可以返回图片地址的promise
   // 默认数组第一个是背景图、第二个是滑块图
-  getImgSrc: () => Promise<string[]>,
+  getImgSrc: () => Promise<string[]>
   // 结果校验
   checkResult: (data: string | number) => Promise<boolean>
 }
@@ -22,10 +22,10 @@ const props = withDefaults(defineProps<Props>(), {
   target: '',
   position: 'middle',
   titleText: '请完成安全验证',
-  getImgSrc: () => new Promise(resolve => resolve([]))
+  getImgSrc: () => new Promise(resolve => resolve([])),
 })
 
-/* 子组件通过emit抛出事件*/
+/* 子组件通过emit抛出事件 */
 const emits = defineEmits(['testEmit']) // for test
 
 function testEmit() { // for test
@@ -38,7 +38,7 @@ let targetDom: HTMLElement | null = null
 
 const imgSrc = reactive({
   slideBg: '',
-  slide: ''
+  slide: '',
 })
 
 const isReady = ref(false)
@@ -46,23 +46,22 @@ const isReady = ref(false)
 const vetifyBodyPosition = ref({
   left: '50%',
   top: '50%',
-  transform: 'translate(-50%, -50%)'
+  transform: 'translate(-50%, -50%)',
 })
 
-let slideBgWidth = 320 + 'px'
-let slideBgHeight = 160 + 'px'
-let slideWidth = 60 + 'px'
-let slideHeight = 158 + 'px'
+let slideBgWidth = `${320}px`
+let slideBgHeight = `${160}px`
+let slideWidth = `${60}px`
+let slideHeight = `${158}px`
 
-let slideBlockLeft = ref('0px');
+const slideBlockLeft = ref('0px');
 let blockInitialClientX = 0;
 let moveX = 0;
 let isSlideAllowed = true
 
 let vetifyResult = false
-let vetifyBlockText = ref('—>')
-let vetifyBgColor = ref('#d69898')
-
+const vetifyBlockText = ref('—>')
+const vetifyBgColor = ref('#d69898')
 
 /* lifeCycle */
 onBeforeMount(async () => {
@@ -81,9 +80,10 @@ function handleBodyPositon() {
     const vetifyBody: HTMLElement | null = context && context.refs['vetify-body'] as HTMLElement
     const vetifyBodyWidth = vetifyBody && vetifyBody.offsetWidth
     const vetifyBodyHeight = vetifyBody && vetifyBody.offsetHeight
-    if (!vetifyBodyWidth || !vetifyBodyHeight) return
+    if (!vetifyBodyWidth || !vetifyBodyHeight)
+      return
     // console.error(top, left, offsetWidth, offsetHeight)
-    let finalLeft = left - ((vetifyBodyWidth - offsetWidth) / 2)
+    const finalLeft = left - ((vetifyBodyWidth - offsetWidth) / 2)
     let finalTop
     switch (props.position) {
       case 'top':
@@ -97,9 +97,9 @@ function handleBodyPositon() {
         break;
     }
     vetifyBodyPosition.value = {
-      left: finalLeft + 'px',
-      top: finalTop + 'px',
-      transform: 'translate(0, 0)'
+      left: `${finalLeft}px`,
+      top: `${finalTop}px`,
+      transform: 'translate(0, 0)',
     }
   }
 }
@@ -113,27 +113,28 @@ async function handleImageLoad() {
   imgSrc.slide = slide
   const imgsInfo = await loadImages([imgSrc.slideBg, imgSrc.slide])
   console.log(imgsInfo)
-  slideBgWidth = imgsInfo[0].width + 'px'
-  slideBgHeight = imgsInfo[0].height + 'px'
-  slideWidth = imgsInfo[1].width + 'px'
-  slideHeight = imgsInfo[1].height + 'px'
+  slideBgWidth = `${imgsInfo[0].width}px`
+  slideBgHeight = `${imgsInfo[0].height}px`
+  slideWidth = `${imgsInfo[1].width}px`
+  slideHeight = `${imgsInfo[1].height}px`
   isReady.value = true
 }
 
 function closeVetify() {
   console.log('close')
   const vetifyContainer = document.body.querySelector('#vetify-slide-container')
-  if (vetifyContainer) vetifyContainer.remove();
+  if (vetifyContainer)
+    vetifyContainer.remove();
 }
 
 async function resetVetify() {
   // 初始化变量
   imgSrc.slideBg = '';
   imgSrc.slide = '';
-  slideBgWidth = 320 + 'px'
-  slideBgHeight = 160 + 'px'
-  slideWidth = 60 + 'px'
-  slideHeight = 158 + 'px'
+  slideBgWidth = `${320}px`
+  slideBgHeight = `${160}px`
+  slideWidth = `${60}px`
+  slideHeight = `${158}px`
   slideBlockLeft.value = '0px'
   blockInitialClientX = 0
   moveX = 0
@@ -148,14 +149,15 @@ async function resetVetify() {
 const move = throttle((e: MouseEvent) => {
   // console.log(e)
   moveX = e.clientX - blockInitialClientX;
-  let maxX = Number(slideBgWidth.replace(/px/, '')) - 60
+  const maxX = Number(slideBgWidth.replace(/px/, '')) - 60
   moveX = moveX > 0 ? (moveX > maxX ? maxX : moveX) : 0
   // console.log(e.clientX, blockInitialClientX)
-  slideBlockLeft.value = moveX + 'px'
+  slideBlockLeft.value = `${moveX}px`
 }, 50)
 
 function onMousedown(e: MouseEvent) {
-  if (!isSlideAllowed) return;
+  if (!isSlideAllowed)
+    return;
   blockInitialClientX = e.clientX;
   document.addEventListener('mousemove', move)
   document.addEventListener('mouseup', onDocumentMouseUp)
@@ -163,7 +165,8 @@ function onMousedown(e: MouseEvent) {
 
 async function onDocumentMouseUp() {
   document.removeEventListener('mousemove', move)
-  if (moveX === 0) return; // 滑块没移动时 不校验
+  if (moveX === 0)
+    return; // 滑块没移动时 不校验
   isSlideAllowed = false;
   vetifyResult = await props.checkResult(moveX);
   await changeBlockStyle(vetifyResult)
@@ -173,15 +176,16 @@ async function onDocumentMouseUp() {
 async function changeBlockStyle(isPassed: boolean) {
   let cb = () => { }
   if (isPassed) {
-    vetifyBlockText.value = "√"
+    vetifyBlockText.value = '√'
     vetifyBgColor.value = 'green'
     cb = () => {
       // 关闭弹窗 执行成功回调
       closeVetify()
       props.onSuccess && props.onSuccess()
     }
-  } else {
-    vetifyBlockText.value = "X"
+  }
+  else {
+    vetifyBlockText.value = 'X'
     vetifyBgColor.value = 'red'
     cb = resetVetify
   }
@@ -190,27 +194,32 @@ async function changeBlockStyle(isPassed: boolean) {
 }
 
 function delay(time: number): Promise<void> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, time)
   })
 }
-
 </script>
 
 <template>
-  <div class="mask" @click="testEmit" ref="mask"></div>
-  <div class="body" :style="vetifyBodyPosition" ref="vetify-body" v-show="isReady">
+  <div ref="mask" class="mask" @click="testEmit" />
+  <div v-show="isReady" ref="vetify-body" class="body" :style="vetifyBodyPosition">
     <header class="header">
-      <div class="text">{{ props.titleText }}</div>
-      <div class="close" @click="closeVetify">X</div>
+      <div class="text">
+        {{ props.titleText }}
+      </div>
+      <div class="close" @click="closeVetify">
+        X
+      </div>
     </header>
     <main class="main">
-      <img :src="imgSrc.slideBg" alt="背景图" class="slide-bg" />
-      <img :src="imgSrc.slide" alt="滑块" class="slide" />
+      <img :src="imgSrc.slideBg" alt="背景图" class="slide-bg">
+      <img :src="imgSrc.slide" alt="滑块" class="slide">
     </main>
     <footer class="footer">
-      <div class="progress-block"></div>
-      <div class="slide-block" @mousedown="onMousedown">{{ vetifyBlockText }}</div>
+      <div class="progress-block" />
+      <div class="slide-block" @mousedown="onMousedown">
+        {{ vetifyBlockText }}
+      </div>
     </footer>
   </div>
 </template>

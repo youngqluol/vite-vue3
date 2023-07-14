@@ -1,14 +1,14 @@
-import { generateRangeRondom } from './Helper';
+import { createApp } from 'vue';
 import initImage from '../assets/logo.png';
 import VetifySlide from '../components/VetifySlide.vue';
-import { createApp, App } from 'vue';
+import { generateRangeRondom } from './Helper';
 
 export interface vetifyOptions {
-  pointNum?: Number;
-  width?: number;
-  height?: number;
-  onSuccess?: Function;
-  onFail?: Function;
+  pointNum?: number
+  width?: number
+  height?: number
+  onSuccess?: Function
+  onFail?: Function
 }
 
 class Vetify {
@@ -17,15 +17,16 @@ class Vetify {
     width: 400,
     height: 300,
     onSuccess: () => {},
-    onFail: () => {}
+    onFail: () => {},
   };
 
   private options: vetifyOptions = {};
 
-  private dotWords =
-    '天地玄黄宇宙洪荒日月盈昃辰宿列张寒来暑往秋收冬藏闰馀成岁律吕调阳'.split(
-      ''
+  private dotWords
+    = '天地玄黄宇宙洪荒日月盈昃辰宿列张寒来暑往秋收冬藏闰馀成岁律吕调阳'.split(
+      '',
     );
+
   private wordPositons: number[][] = [];
   private clickPositions: number[][] = [];
 
@@ -33,7 +34,7 @@ class Vetify {
   private canvasContext = this.canvas.getContext('2d');
   public static targetDom: HTMLElement | null;
   private static currentDotNum = 0;
-  private clickAllowed: boolean = true;
+  private clickAllowed = true;
   private resetTimer: any = null;
   private successTimer: any = null;
 
@@ -56,20 +57,20 @@ class Vetify {
       return;
     }
     Vetify.targetDom.style.position = 'relative';
-    Vetify.targetDom.style.width = width + 'px';
-    Vetify.targetDom.style.height = height + 'px';
+    Vetify.targetDom.style.width = `${width}px`;
+    Vetify.targetDom.style.height = `${height}px`;
     this.canvas.style.position = 'absolute';
-    this.canvas.style.left = 0 + 'px';
-    this.canvas.style.top = 0 + 'px';
-    this.canvas.style.width = width + 'px';
-    this.canvas.style.height = height + 'px';
+    this.canvas.style.left = `${0}px`;
+    this.canvas.style.top = `${0}px`;
+    this.canvas.style.width = `${width}px`;
+    this.canvas.style.height = `${height}px`;
     // TODO 图片随机显示，或者从服务端拉取？
     const drawFlag = await this.drawImage(initImage);
     drawFlag && Vetify.targetDom.appendChild(this.canvas);
   }
 
   private async drawImage(imgSrc: string): Promise<boolean> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const image = new Image();
       image.crossOrigin = 'Anonymous';
       image.src = imgSrc;
@@ -90,7 +91,8 @@ class Vetify {
     const targetDotWords: Array<string> = [];
     while (targetDotWords.length < pointNum) {
       const word = this.dotWords[Math.ceil(Math.random() * maxIndex)];
-      if (targetDotWords.indexOf(word) > -1) continue;
+      if (targetDotWords.includes(word))
+        continue;
       targetDotWords.push(word);
     }
     return targetDotWords;
@@ -105,8 +107,8 @@ class Vetify {
       for (let i = 0; i < old.length; i++) {
         const item = old[i];
         if (
-          Math.abs(newOne[0] - item[0]) < 40 &&
-          Math.abs(newOne[1] - item[1]) < 40
+          Math.abs(newOne[0] - item[0]) < 40
+          && Math.abs(newOne[1] - item[1]) < 40
         ) {
           flag = true;
           break;
@@ -120,7 +122,8 @@ class Vetify {
     while (this.wordPositons.length < pointNum) {
       const randomLeft = generateRangeRondom(widthRange[0], widthRange[1]);
       const randomTop = generateRangeRondom(heightRange[0], heightRange[1]);
-      if (isPositionSame([randomLeft, randomTop], this.wordPositons)) continue;
+      if (isPositionSame([randomLeft, randomTop], this.wordPositons))
+        continue;
       this.wordPositons.push([randomLeft, randomTop]);
     }
     return this.wordPositons;
@@ -135,8 +138,8 @@ class Vetify {
       const div = document.createElement('div');
       div.className = 'vetify-click-word';
       div.textContent = words[domNum];
-      div.style.left = this.wordPositons[domNum][0] - 40 / 2 + 'px';
-      div.style.top = this.wordPositons[domNum][1] - 40 / 2 + 'px';
+      div.style.left = `${this.wordPositons[domNum][0] - 40 / 2}px`;
+      div.style.top = `${this.wordPositons[domNum][1] - 40 / 2}px`;
       Vetify.targetDom && Vetify.targetDom.appendChild(div);
       domNum++;
     }
@@ -149,14 +152,14 @@ class Vetify {
   public static createClickPointDom(
     content: string | number,
     x: number,
-    y: number
+    y: number,
   ) {
     const pointDom: HTMLElement = document.createElement('div');
     pointDom.className = 'vetify-click-point';
     pointDom.textContent = `${content}`;
     // TODO：pointDom支持动态宽高
-    pointDom.style.left = x - 20 / 2 + 'px';
-    pointDom.style.top = y - 20 / 2 + 'px';
+    pointDom.style.left = `${x - 20 / 2}px`;
+    pointDom.style.top = `${y - 20 / 2}px`;
     Vetify.targetDom && Vetify.targetDom.appendChild(pointDom);
     Vetify.currentDotNum++;
   }
@@ -168,8 +171,8 @@ class Vetify {
     for (let i = 0; i < this.wordPositons.length; i++) {
       // 验证失败：顺序不对 或 误差超过10
       if (
-        Math.abs(this.wordPositons[i][0] - this.clickPositions[i][0]) > 10 ||
-        Math.abs(this.wordPositons[i][1] - this.clickPositions[i][1]) > 10
+        Math.abs(this.wordPositons[i][0] - this.clickPositions[i][0]) > 10
+        || Math.abs(this.wordPositons[i][1] - this.clickPositions[i][1]) > 10
       ) {
         vetifyFlag = false;
         break;
@@ -180,7 +183,8 @@ class Vetify {
   }
 
   private onClickImage(e: any) {
-    if (!this.clickAllowed) return;
+    if (!this.clickAllowed)
+      return;
     const { pointNum = 0 } = this.options;
     let { offsetX: x, offsetY: y } = e;
     console.log(x, y);
@@ -207,7 +211,8 @@ class Vetify {
         this.successTimer = setTimeout(() => {
           this.options.onSuccess && this.options.onSuccess();
         }, 1000);
-      } else {
+      }
+      else {
         bgColor = 'red';
         alertText = '验证失败';
         this.options.onFail && this.options.onFail();
@@ -220,9 +225,9 @@ class Vetify {
       const alertDom = document.createElement('div');
       alertDom.className = 'vetify-click-alert';
       alertDom.textContent = alertText;
-      alertDom.style.width = this.options.width + 'px';
+      alertDom.style.width = `${this.options.width}px`;
       alertDom.style.backgroundColor = bgColor;
-      alertDom.style.left = 0 + 'px';
+      alertDom.style.left = `${0}px`;
       Vetify.targetDom && Vetify.targetDom.appendChild(alertDom);
     }
   }
@@ -259,7 +264,7 @@ class Vetify {
     const alert = document.getElementsByClassName('vetify-click-alert');
     function removeDom(dom: any) {
       if (dom) {
-        Array.prototype.slice.call(dom).forEach(item => {
+        Array.prototype.slice.call(dom).forEach((item) => {
           item.remove();
         });
       }
@@ -299,16 +304,16 @@ class Vetify {
 export default Vetify;
 
 interface VetifySlideProps {
-  target?: string; // 位置信息：决定组件在页面的最终位置
-  position?: string; // top、bottom、middle
-  titleText?: string;
-  onFail?: Function;
-  onSuccess?: Function;
+  target?: string // 位置信息：决定组件在页面的最终位置
+  position?: string // top、bottom、middle
+  titleText?: string
+  onFail?: Function
+  onSuccess?: Function
   // 图片（背景、滑块）获取，需要是一个可以返回图片地址的promise
   // 默认数组第一个是背景图、第二个是滑块图
-  getImgSrc: () => Promise<string[]>;
+  getImgSrc: () => Promise<string[]>
   // 结果校验
-  checkResult: (data: string | number) => Promise<boolean>;
+  checkResult: (data: string | number) => Promise<boolean>
 }
 
 export function showVetifySlide({ ...options }: VetifySlideProps) {

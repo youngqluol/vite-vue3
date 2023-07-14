@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, watch, defineAsyncComponent } from 'vue';
-import { useMenuStore } from '@/store/menu';
+import { computed, defineAsyncComponent } from 'vue';
 import { storeToRefs } from 'pinia';
-
+import { useMenuStore } from '@/store/menu';
 
 const menuStore = useMenuStore();
 const { navList, currentNavValue } = storeToRefs(menuStore);
@@ -10,7 +9,7 @@ const { navList, currentNavValue } = storeToRefs(menuStore);
 const navCompMap = new Map();
 
 const editableTabs = computed(() => {
-  return navList.value.map(navValue => {
+  return navList.value.map((navValue) => {
     if (!navCompMap.has(navValue)) {
       navCompMap.set(navValue, defineAsyncComponent(() => import(`./components/${navValue}.vue`)))
     }
@@ -18,10 +17,10 @@ const editableTabs = computed(() => {
     return {
       title: navValue,
       name: navValue,
-      navComponent
+      navComponent,
     }
   })
-}
+},
 )
 const currentNavComponent = computed(() => editableTabs.value.filter(item => item.name === currentNavValue.value)[0].navComponent)
 
@@ -29,13 +28,11 @@ function removeTab(name: string) {
   console.log('removeTab', name)
   menuStore.removeNav(name);
   // 删除navCompMap中异步组件
-
 }
 
 function clickTab(tab: any) {
   // menuStore.toggleTabsValue(tab.paneName)
 }
-
 </script>
 
 <template>
@@ -52,11 +49,11 @@ function clickTab(tab: any) {
         :key="item.name"
         :label="item.title"
         :name="item.name"
-      ></el-tab-pane>
+      />
     </el-tabs>
     <div class="nav-comp-wrapper">
       <keep-alive>
-        <component :is="currentNavComponent"></component>
+        <component :is="currentNavComponent" />
       </keep-alive>
     </div>
   </div>

@@ -5,13 +5,12 @@ interface Props {
   test?: string
 }
 const props = withDefaults(defineProps<Props>(), {
-  test: ''
+  test: '',
 })
 
 onMounted(() => {
   console.error('Edit onMounted')
 })
-
 </script>
 
 <template>

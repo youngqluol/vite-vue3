@@ -1,46 +1,47 @@
-/**
- * menu菜单
- * 目前支持10个图标组件：Document, HomeFilled, Setting, Edit, Eleme, HelpFilled, Goblet, Key, Shop, Switch
- */
-export const elementMenuData = [
+export interface ElementMenuDataItem {
+  title: string
+  iconName: string
+}
+
+export const elementMenuData: ElementMenuDataItem[] = [
   {
     title: 'Document',
-    iconName: 'Document'
+    iconName: 'Document',
   },
   {
     title: 'HomeFilled',
-    iconName: 'HomeFilled'
+    iconName: 'HomeFilled',
   },
   {
     title: 'Setting',
-    iconName: 'Setting'
+    iconName: 'Setting',
   },
   {
     title: 'Edit',
-    iconName: 'Edit'
+    iconName: 'Edit',
   },
   {
     title: 'Eleme',
-    iconName: 'Eleme'
+    iconName: 'Eleme',
   },
   {
     title: 'HelpFilled',
-    iconName: 'HelpFilled'
+    iconName: 'HelpFilled',
   },
   {
     title: 'Goblet',
-    iconName: 'Goblet'
+    iconName: 'Goblet',
   },
   {
     title: 'Key',
-    iconName: 'Key'
+    iconName: 'Key',
   },
   {
     title: 'Shop',
-    iconName: 'Shop'
+    iconName: 'Shop',
   },
   {
     title: 'Switch',
-    iconName: 'Switch'
-  }
+    iconName: 'Switch',
+  },
 ];

@@ -22,7 +22,7 @@ export function arrMix(infoArr: string[][], codeArr: string[][]): Object[] {
       province: tempArr[0],
       city: tempArr[1],
       area: tempArr[2],
-      street: tempArr[3]
+      street: tempArr[3],
     });
     loopTimes++;
   }
@@ -31,17 +31,17 @@ export function arrMix(infoArr: string[][], codeArr: string[][]): Object[] {
 
 /* 图片加载 */
 interface ImageToLoad {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 export async function loadImage(src: string): Promise<ImageToLoad> {
   return new Promise((resolve, reject) => {
-    let img = new Image();
+    const img = new Image();
     img.onload = () => {
       resolve({
         width: img.width,
-        height: img.height
+        height: img.height,
       });
     };
     img.onerror = () => {
@@ -52,9 +52,10 @@ export async function loadImage(src: string): Promise<ImageToLoad> {
 }
 
 export async function loadImages(
-  imgsArr: string[]
+  imgsArr: string[],
 ): Promise<Array<ImageToLoad>> {
-  if (imgsArr.length === 0) return [];
+  if (imgsArr.length === 0)
+    return [];
   const imgsInfo = [];
   for (let i = 0; i < imgsArr.length; i++) {
     imgsInfo.push(await loadImage(imgsArr[i]));
@@ -66,7 +67,8 @@ export async function loadImages(
 export function throttle(fn: Function, delay: number) {
   let timer: any = null;
   return function (...params: any[]) {
-    if (timer) return;
+    if (timer)
+      return;
     fn(...params);
     timer = setTimeout(() => {
       timer = null;

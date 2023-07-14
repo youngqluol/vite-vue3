@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import { $vetify } from '../utils/context'
-import VetifySlide from '../components/VetifySlide.vue'
 import { showVetifySlide } from '../utils/vetify'
 
 // 插件中provide，这里inject
@@ -14,7 +13,7 @@ function showClickVetify() {
     position: 'top',
     pointNum: 3,
     onSuccess,
-    onFail
+    onFail,
   });
 }
 
@@ -30,7 +29,7 @@ function showSliderVetify() {
   console.log('滑动验证')
   showVetifySlide({
     getImgSrc: () => new Promise(resolve => resolve([])),
-    checkResult
+    checkResult,
   })
 }
 
@@ -40,12 +39,11 @@ function testEmit(...args: []) {
 }
 
 function checkResult(data: string | number): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     console.log('check result:', data)
     resolve(Number(data) > 180)
   })
 }
-
 </script>
 
 <template>
@@ -56,8 +54,12 @@ function checkResult(data: string | number): Promise<boolean> {
     :check-result="checkResult"
   /> -->
   <div class="vetify-page">
-    <button @click="showClickVetify" id="target-button">点验证码</button>
-    <button @click="showSliderVetify">滑动验证码</button>
+    <button id="target-button" @click="showClickVetify">
+      点验证码
+    </button>
+    <button @click="showSliderVetify">
+      滑动验证码
+    </button>
   </div>
 </template>
 

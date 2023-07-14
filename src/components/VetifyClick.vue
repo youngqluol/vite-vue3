@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount, nextTick, provide } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import type { vetifyOptions } from '../utils/vetify';
 import Vetify from '../utils/vetify'
-import { vetifyOptions } from '../utils/vetify'
 
 interface showVetifyOptions extends vetifyOptions {
-  target?: string,
+  target?: string
   position?: string
 }
 
@@ -12,13 +12,13 @@ interface showVetifyOptions extends vetifyOptions {
 const props = defineProps<{ msg?: string }>()
 
 let vetifyInstance: any = null;
-let maskVisible = ref(false);
-let mainVisible = ref(false);
+const maskVisible = ref(false);
+const mainVisible = ref(false);
 
 // 暴露组件属性或方法
 defineExpose({
   hiddenVetify,
-  showVetify
+  showVetify,
 })
 
 function hiddenVetify() {
@@ -26,17 +26,17 @@ function hiddenVetify() {
   mainVisible.value = false;
   vetifyInstance && vetifyInstance.destroy();
 }
-/**  
+/**
 * @param target 目标dom
 * @param position 在目标的哪个位置
-* 
+*
 */
 function showVetify(
   {
     target = '',
     position = '',
     ...vetifyInstanceOptions
-  }: showVetifyOptions
+  }: showVetifyOptions,
 ) {
   const { onSuccess = () => { } } = vetifyInstanceOptions;
   const finalSuccessFn = () => {
@@ -64,17 +64,20 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   vetifyInstance && vetifyInstance.destroy()
 })
-
 </script>
 
 <template>
-  <div class="mask" v-show="maskVisible"></div>
-  <div class="main" v-show="mainVisible">
-    <div id="vetify-title"></div>
-    <div id="vetify-container"></div>
+  <div v-show="maskVisible" class="mask" />
+  <div v-show="mainVisible" class="main">
+    <div id="vetify-title" />
+    <div id="vetify-container" />
     <div id="vetify-footer">
-      <button @click="onReset">刷新</button>
-      <button @click="hiddenVetify">关闭</button>
+      <button @click="onReset">
+        刷新
+      </button>
+      <button @click="hiddenVetify">
+        关闭
+      </button>
     </div>
   </div>
 </template>

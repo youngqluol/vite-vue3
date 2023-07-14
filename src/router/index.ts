@@ -4,33 +4,33 @@ import Home from '@/views/home.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home',
   },
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
   },
   {
     path: '/vetify',
     name: 'vetify',
-    component: () => import('@/views/vetify.vue')
+    component: () => import('@/views/vetify.vue'),
   },
   {
     path: '/element',
     name: 'element',
-    component: () => import('@/views/element.vue')
+    component: () => import('@/views/element.vue'),
   },
   {
     path: '/tsxPage',
     name: 'tsxPage',
-    component: () => import('@/components/testDemo/TsxDemo.vue')
-  }
+    component: () => import('@/components/testDemo/TsxDemo.vue'),
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });
 
 export default router;

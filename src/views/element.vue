@@ -5,13 +5,12 @@ import { elementMenuData } from '@/config';
 
 // TODO 通过接口来定最终菜单数据
 const menuList = [...elementMenuData, ...elementMenuData]
-
 </script>
 
 <template>
   <div class="element-page">
-    <left-menu :menu-list="menuList" />
-    <right-nav />
+    <LeftMenu :menu-list="menuList" />
+    <RightNav />
   </div>
 </template>
 

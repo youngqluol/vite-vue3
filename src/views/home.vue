@@ -1,26 +1,25 @@
 <script setup lang="ts">
 import DividerSection from '../components/DividerSection.vue';
-import functionComp from '../components/functionComp';
 import useTitle from '@/hooks/useTitle';
 
 interface DemoPageItem {
-  title: string,
+  title: string
   routeName: string
 }
 
 const demoPages: DemoPageItem[] = [
   {
     title: '验证码demo',
-    routeName: 'vetify'
+    routeName: 'vetify',
   },
   {
     title: 'Element demo',
-    routeName: 'element'
+    routeName: 'element',
   },
   {
     title: 'TSX demo',
-    routeName: 'tsxPage'
-  }
+    routeName: 'tsxPage',
+  },
 ]
 
 const title = useTitle()
@@ -28,16 +27,15 @@ const title = useTitle()
 function changeTitle(newTitle: string) {
   title.value = newTitle;
 }
-
 </script>
 
 <template>
   <div class="home-page">
     <DividerSection
       v-for="demoPage in demoPages"
-      :title="demoPage.title"
-      :routeName="demoPage.routeName"
       :key="demoPage.routeName"
+      :title="demoPage.title"
+      :route-name="demoPage.routeName"
     />
   </div>
   <!-- <button @click="changeTitle('新标题')">改变title</button>
