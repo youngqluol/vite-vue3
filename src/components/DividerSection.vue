@@ -22,7 +22,7 @@ h('div')
 </script>
 
 <template>
-  <div class="devider">
+  <div :class="$attrs.class">
     <span>----------</span>
     {{ title }}
     <span>----------</span>

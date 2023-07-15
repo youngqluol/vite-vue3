@@ -9,8 +9,8 @@ interface Props {
   target?: string // 位置信息：决定组件在页面的最终位置
   position?: string // top、bottom、middle
   titleText?: string
-  onFail?: Function
-  onSuccess?: Function
+  onFail?: () => void
+  onSuccess?: () => void
   // 图片（背景、滑块）获取，需要是一个可以返回图片地址的promise
   // 默认数组第一个是背景图、第二个是滑块图
   getImgSrc: () => Promise<string[]>
@@ -22,7 +22,9 @@ const props = withDefaults(defineProps<Props>(), {
   target: '',
   position: 'middle',
   titleText: '请完成安全验证',
-  getImgSrc: () => new Promise(resolve => resolve([])),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
+  getImgSrc: () => new Promise(resolve => resolve([''])),
 })
 
 /* 子组件通过emit抛出事件 */
@@ -201,8 +203,8 @@ function delay(time: number): Promise<void> {
 </script>
 
 <template>
-  <div ref="mask" class="mask" @click="testEmit" />
-  <div v-show="isReady" ref="vetify-body" class="body" :style="vetifyBodyPosition">
+  <div class="mask" @click="testEmit" />
+  <div v-show="isReady" class="body" :style="vetifyBodyPosition">
     <header class="header">
       <div class="text">
         {{ props.titleText }}

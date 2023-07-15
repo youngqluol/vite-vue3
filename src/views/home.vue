@@ -34,14 +34,14 @@ function changeTitle(newTitle: string) {
     <DividerSection
       v-for="demoPage in demoPages"
       :key="demoPage.routeName"
+      class="p-5"
       :title="demoPage.title"
       :route-name="demoPage.routeName"
     />
   </div>
-  <!-- <button @click="changeTitle('新标题')">改变title</button>
-  <functionComp :text="'1'">
-    <div>1111</div>
-  </functionComp> -->
+  <div class="p-5 bg-slate-50 text-center">
+    tailwind css
+  </div>
 </template>
 
 <style lang="less" scoped>
