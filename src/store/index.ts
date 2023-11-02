@@ -4,7 +4,6 @@ import { createPinia, defineStore } from 'pinia';
 
 const store = createPinia();
 
-// 第二种
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0);
   function increment() {
