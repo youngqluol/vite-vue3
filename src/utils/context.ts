@@ -2,8 +2,8 @@ import type { InjectionKey } from 'vue'
 
 // 防止provide类型丢失
 interface VetifyClickComp {
-  hiddenVetify: Function
-  showVetify: Function
+  hiddenVetify: () => void
+  showVetify: () => void
 }
 
-export const $vetify: InjectionKey<VetifyClickComp> = Symbol()
+export const $vetify: InjectionKey<VetifyClickComp> = Symbol('vetify Sympol')

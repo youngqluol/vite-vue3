@@ -9,7 +9,7 @@ export function generateRangeRondom(max: number, min: number): number {
  * @param codeArr
  * @returns
  */
-export function arrMix(infoArr: string[][], codeArr: string[][]): Object[] {
+export function arrMix(infoArr: string[][], codeArr: string[][]): Record<any, any>[] {
   const finalArr = [];
   const len = infoArr.length;
   let loopTimes = 0;
@@ -45,7 +45,7 @@ export async function loadImage(src: string): Promise<ImageToLoad> {
       });
     };
     img.onerror = () => {
-      reject('img load error');
+      reject(new Error('img load error'));
     };
     img.src = src;
   });
@@ -64,7 +64,7 @@ export async function loadImages(
 }
 
 /* 节流 防抖 */
-export function throttle(fn: Function, delay: number) {
+export function throttle(fn: (args?: any[]) => void, delay: number) {
   let timer: any = null;
   return function (...params: any[]) {
     if (timer)
@@ -76,7 +76,7 @@ export function throttle(fn: Function, delay: number) {
   };
 }
 
-export function debounce(fn: Function, delay: number) {
+export function debounce(fn: (args?: any[]) => void, delay: number) {
   let timer: any = null;
   return function (...params: any[]) {
     if (timer) {
