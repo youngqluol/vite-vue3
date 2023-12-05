@@ -30,7 +30,7 @@ class Vetify {
   private wordPositons: number[][] = [];
   private clickPositions: number[][] = [];
 
-  private canvas: HTMLCanvasElement = document.createElement('canvas');
+  private readonly canvas: HTMLCanvasElement = document.createElement('canvas');
   private canvasContext = this.canvas.getContext('2d');
   public static targetDom: HTMLElement | null;
   private static currentDotNum = 0;

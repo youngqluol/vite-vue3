@@ -7,6 +7,8 @@ declare module 'vue' {
     DividerSection: typeof import('./src/components/DividerSection.vue')['default']
     Document: typeof import('./src/components/element/components/Document.vue')['default']
     Edit: typeof import('./src/components/element/components/Edit.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
     Eleme: typeof import('./src/components/element/components/Eleme.vue')['default']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']

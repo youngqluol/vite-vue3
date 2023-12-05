@@ -5,6 +5,7 @@
     "antfu/top-level-function": "off",
     "curly": "off",
     "no-console": "warn",
-    "unused-imports/no-unused-imports": "warn"
+    "unused-imports/no-unused-imports": "warn",
+    "vue/no-unused-vars": "warn"
   }
 }

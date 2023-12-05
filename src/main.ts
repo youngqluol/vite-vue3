@@ -4,9 +4,8 @@ import router from './router';
 import { setupStore } from './store'
 import vetifyPlugin from './plugins/vetifyPlugin';
 import registerElementIcons from './config/elementIcon';
-
-// import './style/global.less';
-import './style/index.css';
+import 'virtual:uno.css';
+import './style/index.less';
 
 const app = createApp(App);
 
