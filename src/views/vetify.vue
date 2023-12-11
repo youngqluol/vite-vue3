@@ -26,16 +26,10 @@ function onFail() {
 }
 
 function showSliderVetify() {
-  console.log('滑动验证')
   showVetifySlide({
     getImgSrc: () => new Promise(resolve => resolve([])),
     checkResult,
   })
-}
-
-// for test
-function testEmit(...args: []) {
-  console.error('testEmit', args)
 }
 
 function checkResult(data: string | number): Promise<boolean> {
@@ -55,7 +49,7 @@ function checkResult(data: string | number): Promise<boolean> {
   /> -->
   <div class="vetify-page">
     <button id="target-button" @click="showClickVetify">
-      点验证码
+      点选验证码
     </button>
     <button @click="showSliderVetify">
       滑动验证码

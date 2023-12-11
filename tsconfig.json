@@ -5,11 +5,13 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
+    "noImplicitAny": false,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "allowJs": true,
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]

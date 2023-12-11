@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+
 const demoPages: Array<{ title: string; routeName: string }> = [
   {
     title: '验证码',
@@ -13,10 +17,14 @@ const demoPages: Array<{ title: string; routeName: string }> = [
     routeName: 'tsxPage',
   },
 ]
+
+function goDemoPage(routeName) {
+  router.push(`./${routeName}`)
+}
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center justify-center">
     <el-divider content-position="left">
       <span class="font-bold">demo页</span>
     </el-divider>
@@ -25,6 +33,7 @@ const demoPages: Array<{ title: string; routeName: string }> = [
         v-for="{ title, routeName } in demoPages"
         :key="routeName"
         type="primary"
+        @click="goDemoPage(routeName)"
       >
         {{ title }}
       </el-button>

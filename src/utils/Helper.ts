@@ -10,20 +10,16 @@ export function generateRangeRondom(max: number, min: number): number {
  * @returns
  */
 export function arrMix(infoArr: string[][], codeArr: string[][]): Record<any, any>[] {
-  const finalArr = [];
+  const finalArr: any[] = [];
   const len = infoArr.length;
   let loopTimes = 0;
   while (loopTimes < len) {
-    const tempArr = [];
+    const tempArr: string[] = [];
     for (let i = 0; i < infoArr[loopTimes].length; i++) {
       tempArr.push(`${infoArr[loopTimes][i]}/${codeArr[loopTimes][i]}`);
     }
-    finalArr.push({
-      province: tempArr[0],
-      city: tempArr[1],
-      area: tempArr[2],
-      street: tempArr[3],
-    });
+    const [province, city, area, street] = tempArr;
+    finalArr.push({ province, city, area, street });
     loopTimes++;
   }
   return finalArr;
@@ -56,7 +52,7 @@ export async function loadImages(
 ): Promise<Array<ImageToLoad>> {
   if (imgsArr.length === 0)
     return [];
-  const imgsInfo = [];
+  const imgsInfo: Array<ImageToLoad> = [];
   for (let i = 0; i < imgsArr.length; i++) {
     imgsInfo.push(await loadImage(imgsArr[i]));
   }
